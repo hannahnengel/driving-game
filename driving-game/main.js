@@ -30,6 +30,7 @@ function moveCar(event) {
 }
 
 function startCar() {
+  car.start = true;
   var pixelsToMove = parseInt($carImg.style.left) + 10;
   if (isNaN(pixelsToMove)) {
     pixelsToMove = 10;
