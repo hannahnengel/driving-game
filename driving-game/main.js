@@ -8,6 +8,7 @@ var car = {
 };
 
 var $carImg = document.querySelector('.car-img');
+var myInt;
 
 document.addEventListener('keydown', moveCar);
 function moveCar(event) {
@@ -25,7 +26,13 @@ function moveCar(event) {
     $carImg.className = 'car-img south';
   }
   if (event.key === ' ') {
-    setInterval(startCar, 16);
+    if (car.start === false) {
+      myInt = setInterval(startCar, 16);
+    } else if (car.start === true) {
+      clearInterval(myInt);
+      car.start = false;
+    }
+
   }
 }
 
