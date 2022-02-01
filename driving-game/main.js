@@ -24,6 +24,9 @@ function moveCar(event) {
     car.direction = 'South';
     $carImg.className = 'car-img south';
   }
+  if (event.key === ' ') {
+    setInterval(startCar, 16);
+  }
 }
 
 function startCar() {
@@ -32,7 +35,6 @@ function startCar() {
     pixelsToMove = 10;
   }
   var newValue = pixelsToMove.toString();
+  car.location.y = newValue;
   $carImg.style.left = (newValue + 'px');
 }
-
-setInterval(startCar, 16);
