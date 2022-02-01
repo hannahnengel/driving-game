@@ -3,8 +3,8 @@ var car = {
   location: {
     x: 0,
     y: 0
-  }
-
+  },
+  start: false
 };
 
 var $carImg = document.querySelector('.car-img');
