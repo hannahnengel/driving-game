@@ -1,0 +1,15 @@
+.row {
+  display: flex;
+}
+
+.green-background {
+  background-color: #288d26;
+}
+
+.car-column {
+  width: 100%;
+}
+
+.car-img {
+  width: 150px;
+}
