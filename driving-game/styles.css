@@ -12,6 +12,7 @@
 
 .car-img {
   width: 150px;
+  position: absolute;
 }
 
 .east {
