@@ -9,8 +9,8 @@ var car = {
 
 var $carImg = document.querySelector('.car-img');
 
-document.addEventListener('keydown', turnCar);
-function turnCar(event) {
+document.addEventListener('keydown', moveCar);
+function moveCar(event) {
   if (event.key === 'ArrowRight') {
     car.direction = 'East';
     $carImg.className = 'car-img east';
@@ -25,3 +25,14 @@ function turnCar(event) {
     $carImg.className = 'car-img south';
   }
 }
+
+function startCar() {
+  var pixelsToMove = parseInt($carImg.style.left) + 10;
+  if (isNaN(pixelsToMove)) {
+    pixelsToMove = 10;
+  }
+  var newValue = pixelsToMove.toString();
+  $carImg.style.left = (newValue + 'px');
+}
+
+setInterval(startCar, 16);
