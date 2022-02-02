@@ -1,18 +1,14 @@
-.row {
-  display: flex;
-}
-
 .green-background {
   background-color: #288d26;
-}
-
-.car-column {
-  width: 100%;
 }
 
 .car-img {
   width: 150px;
   position: absolute;
+}
+
+.rocket-img {
+  width: 200px;
 }
 
 .east {
