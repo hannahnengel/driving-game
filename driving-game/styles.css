@@ -7,8 +7,38 @@
   position: absolute;
 }
 
-.rocket-img {
-  width: 200px;
+.enemy-car1-img {
+  width: 150px;
+  position: absolute;
+  top: 300px;
+  right: 15px;
+}
+
+.enemy-car2-img {
+  width: 150px;
+  position: absolute;
+  transform: scaleX(-1);
+  top: 600px;
+  left: 15px;
+}
+
+.finish-line {
+  width: 150px;
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+}
+
+.crash {
+  width: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5rem;
+}
+
+.hidden {
+  display: none;
 }
 
 .east {
