@@ -30,6 +30,16 @@ function moveCar(event) {
       myInt = setInterval(startCar, 16);
     } else if (car.start === true) {
       clearInterval(myInt);
+
+      car.location.x = parseInt($carImg.style.left);
+      if (isNaN(parseInt($carImg.style.left))) {
+        car.location.x = 0;
+      }
+      car.location.y = parseInt($carImg.style.top);
+      if (isNaN(parseInt($carImg.style.top))) {
+        car.location.y = 0;
+      }
+
       car.start = false;
     }
 
@@ -38,11 +48,42 @@ function moveCar(event) {
 
 function startCar() {
   car.start = true;
-  var pixelsToMove = parseInt($carImg.style.left) + 10;
-  if (isNaN(pixelsToMove)) {
-    pixelsToMove = 10;
+  var pixelsToMove;
+  var newValue;
+  var movementSpeed = 10;
+
+  if (car.direction === 'East') {
+    pixelsToMove = parseInt($carImg.style.left) + movementSpeed;
+    if (isNaN(pixelsToMove)) {
+      pixelsToMove = movementSpeed;
+    }
+    newValue = pixelsToMove.toString();
+    car.location.x = newValue;
+    $carImg.style.left = (newValue + 'px');
+  } else if (car.direction === 'West') {
+    pixelsToMove = parseInt($carImg.style.left) - movementSpeed;
+    if (isNaN(pixelsToMove)) {
+      pixelsToMove = -movementSpeed;
+    }
+    newValue = pixelsToMove.toString();
+    car.location.x = newValue;
+    $carImg.style.left = (newValue + 'px');
+  } else if (car.direction === 'South') {
+    pixelsToMove = parseInt($carImg.style.top) + movementSpeed;
+    if (isNaN(pixelsToMove)) {
+      pixelsToMove = movementSpeed;
+    }
+    newValue = pixelsToMove.toString();
+    car.location.y = newValue;
+    $carImg.style.top = (newValue + 'px');
+  } else if (car.direction === 'North') {
+    pixelsToMove = parseInt($carImg.style.top) - movementSpeed;
+    if (isNaN(pixelsToMove)) {
+      pixelsToMove = -movementSpeed;
+    }
+    newValue = pixelsToMove.toString();
+    car.location.y = newValue;
+    $carImg.style.top = (newValue + 'px');
   }
-  var newValue = pixelsToMove.toString();
-  car.location.y = newValue;
-  $carImg.style.left = (newValue + 'px');
+
 }
