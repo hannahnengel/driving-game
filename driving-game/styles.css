@@ -5,6 +5,8 @@
 .car-img {
   width: 150px;
   position: absolute;
+  top: 8px;
+  left: 8px;
 }
 
 .enemy-car1-img {
@@ -31,7 +33,6 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 5rem;
 }
 
 .hidden {

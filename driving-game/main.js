@@ -1,8 +1,8 @@
 var car = {
   direction: 'East',
   location: {
-    x: 0,
-    y: 0
+    x: 8,
+    y: 8
   },
   start: false
 };
@@ -53,46 +53,69 @@ function moveCar(event) {
     }
 
   }
-}
 
-function startCar() {
-  car.start = true;
-  var pixelsToMove;
-  var newValue;
-  var movementSpeed = 10;
+  function startCar() {
+    car.start = true;
+    var pixelsToMove;
+    var newValue;
+    var movementSpeed = 10;
 
-  if (car.direction === 'East') {
-    pixelsToMove = parseInt($carImg.style.left) + movementSpeed;
-    if (isNaN(pixelsToMove)) {
-      pixelsToMove = movementSpeed;
+    if (car.direction === 'East') {
+      pixelsToMove = parseInt($carImg.style.left) + movementSpeed;
+      if (isNaN(pixelsToMove)) {
+        pixelsToMove = movementSpeed;
+      }
+      newValue = pixelsToMove.toString();
+      car.location.x = newValue;
+      $carImg.style.left = (newValue + 'px');
+    } else if (car.direction === 'West') {
+      pixelsToMove = parseInt($carImg.style.left) - movementSpeed;
+      if (isNaN(pixelsToMove)) {
+        pixelsToMove = -movementSpeed;
+      }
+      newValue = pixelsToMove.toString();
+      car.location.x = newValue;
+      $carImg.style.left = (newValue + 'px');
+    } else if (car.direction === 'South') {
+      pixelsToMove = parseInt($carImg.style.top) + movementSpeed;
+      if (isNaN(pixelsToMove)) {
+        pixelsToMove = movementSpeed;
+      }
+      newValue = pixelsToMove.toString();
+      car.location.y = newValue;
+      $carImg.style.top = (newValue + 'px');
+    } else if (car.direction === 'North') {
+      pixelsToMove = parseInt($carImg.style.top) - movementSpeed;
+      if (isNaN(pixelsToMove)) {
+        pixelsToMove = -movementSpeed;
+      }
+      newValue = pixelsToMove.toString();
+      car.location.y = newValue;
+      $carImg.style.top = (newValue + 'px');
     }
-    newValue = pixelsToMove.toString();
-    car.location.x = newValue;
-    $carImg.style.left = (newValue + 'px');
-  } else if (car.direction === 'West') {
-    pixelsToMove = parseInt($carImg.style.left) - movementSpeed;
-    if (isNaN(pixelsToMove)) {
-      pixelsToMove = -movementSpeed;
+
+    var $crash = document.querySelector('.crash');
+    if (car.location.x <= -1 || car.location.y <= -1 || car.location.x >= leftScreenX + 15 || car.location.y >= topScreenY + 15) {
+      $crash.classList.remove('hidden');
+      clearInterval(myInt);
+      setTimeout(resetGame, 1500);
     }
-    newValue = pixelsToMove.toString();
-    car.location.x = newValue;
-    $carImg.style.left = (newValue + 'px');
-  } else if (car.direction === 'South') {
-    pixelsToMove = parseInt($carImg.style.top) + movementSpeed;
-    if (isNaN(pixelsToMove)) {
-      pixelsToMove = movementSpeed;
-    }
-    newValue = pixelsToMove.toString();
-    car.location.y = newValue;
-    $carImg.style.top = (newValue + 'px');
-  } else if (car.direction === 'North') {
-    pixelsToMove = parseInt($carImg.style.top) - movementSpeed;
-    if (isNaN(pixelsToMove)) {
-      pixelsToMove = -movementSpeed;
-    }
-    newValue = pixelsToMove.toString();
-    car.location.y = newValue;
-    $carImg.style.top = (newValue + 'px');
   }
 
+}
+
+function resetGame() {
+  var $crash = document.querySelector('.crash');
+  $crash.classList.add('hidden');
+  car = {
+    direction: 'East',
+    location: {
+      x: 8,
+      y: 8
+    },
+    start: false
+  };
+  $carImg.style.left = '8px';
+  $carImg.style.top = '8px';
+  $carImg.className = 'car-img east';
 }
