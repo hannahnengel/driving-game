@@ -11,8 +11,10 @@ var leftScreenX = document.documentElement.clientWidth - 15 - 150;
 var topScreenY = document.documentElement.clientHeight - 15 - 150;
 
 var $enemyCar1 = document.querySelector('.enemy-car1-img');
+var $enemyCar2 = document.querySelector('.enemy-car2-img');
 var $finishLine = document.querySelector('.finish-line');
 $enemyCar1.style.left = leftScreenX.toString() + 'px';
+$enemyCar2.style.left = '15px';
 $finishLine.style.left = leftScreenX.toString() + 'px';
 $finishLine.style.top = topScreenY.toString() + 'px';
 
@@ -135,6 +137,7 @@ function resetGame() {
   $carImg.style.left = '8px';
   $carImg.style.top = '8px';
   $carImg.className = 'car-img east';
+  moveEnemyCarsInt = setInterval(moveEnemyCars, 16);
 }
 
 function checkCrash() {
@@ -183,5 +186,63 @@ function checkCrash() {
     clearInterval(myInt);
     setTimeout(resetGame, 1500);
     crash = false;
+    clearInterval(moveEnemyCarsInt);
   }
 }
+
+function moveEnemyCars() {
+  $enemyCar1 = document.querySelector('.enemy-car1-img');
+  var enemyCar1PixelsToMove;
+  var newValue;
+
+  var movementSpeed = 12;
+
+  if (enemyCars.enemyCar1.direction === 'West') {
+    enemyCar1PixelsToMove = parseInt($enemyCar1.style.left) - movementSpeed;
+    newValue = enemyCar1PixelsToMove.toString();
+    $enemyCar1.style.left = newValue + 'px';
+    enemyCars.enemyCar1.location.x = newValue;
+    if (parseInt($enemyCar1.style.left) <= 15) {
+      enemyCars.enemyCar1.direction = 'East';
+      $enemyCar1.style.transform = 'scaleX(-1)';
+    }
+  }
+
+  if (enemyCars.enemyCar1.direction === 'East') {
+    enemyCar1PixelsToMove = parseInt($enemyCar1.style.left) + movementSpeed;
+    newValue = enemyCar1PixelsToMove.toString();
+    $enemyCar1.style.left = newValue + 'px';
+    enemyCars.enemyCar1.location.x = newValue;
+    if (parseInt($enemyCar1.style.left) >= leftScreenX) {
+      enemyCars.enemyCar1.direction = 'West';
+      $enemyCar1.style.transform = 'scaleX(1)';
+    }
+  }
+
+  $enemyCar2 = document.querySelector('.enemy-car2-img');
+  var enemyCar2PixelsToMove;
+  var newValue2;
+
+  if (enemyCars.enemyCar2.direction === 'West') {
+    enemyCar2PixelsToMove = parseInt($enemyCar2.style.left) - movementSpeed;
+    newValue2 = enemyCar2PixelsToMove.toString();
+    $enemyCar2.style.left = newValue2 + 'px';
+    enemyCars.enemyCar2.location.x = newValue;
+    if (parseInt($enemyCar2.style.left) <= 15) {
+      enemyCars.enemyCar2.direction = 'East';
+      $enemyCar2.style.transform = 'scaleX(-1)';
+    }
+  }
+  if (enemyCars.enemyCar2.direction === 'East') {
+    enemyCar2PixelsToMove = parseInt($enemyCar2.style.left) + movementSpeed;
+    newValue2 = enemyCar2PixelsToMove.toString();
+    $enemyCar2.style.left = newValue2 + 'px';
+    enemyCars.enemyCar2.location.x = newValue;
+    if (parseInt($enemyCar2.style.left) >= leftScreenX) {
+      enemyCars.enemyCar2.direction = 'West';
+      $enemyCar2.style.transform = 'scaleX(1)';
+    }
+  }
+
+}
+var moveEnemyCarsInt = setInterval(moveEnemyCars, 16);
