@@ -7,6 +7,15 @@ var car = {
   start: false
 };
 
+var leftScreenX = document.documentElement.clientWidth - 15 - 150;
+var topScreenY = document.documentElement.clientHeight - 15 - 150;
+
+var $enemyCar1 = document.querySelector('.enemy-car1-img');
+var $finishLine = document.querySelector('.finish-line');
+$enemyCar1.style.left = leftScreenX.toString() + 'px';
+$finishLine.style.left = leftScreenX.toString() + 'px';
+$finishLine.style.top = topScreenY.toString() + 'px';
+
 var $carImg = document.querySelector('.car-img');
 var myInt;
 
