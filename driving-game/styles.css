@@ -5,10 +5,45 @@
 .car-img {
   width: 150px;
   position: absolute;
+  top: 8px;
+  left: 8px;
 }
 
-.rocket-img {
-  width: 200px;
+.enemy-car1-img {
+  width: 150px;
+  position: absolute;
+  top: 300px;
+}
+
+.enemy-car2-img {
+  width: 150px;
+  position: absolute;
+  transform: scaleX(-1);
+  top: 600px;
+  left: 15px;
+}
+
+.finish-line {
+  width: 150px;
+  position: absolute;
+}
+
+.crash {
+  width: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.win {
+  width: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hidden {
+  display: none;
 }
 
 .east {
