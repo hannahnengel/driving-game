@@ -15,6 +15,7 @@ var $enemyCar2 = document.querySelector('.enemy-car2-img');
 var $finishLine = document.querySelector('.finish-line');
 $enemyCar1.style.left = leftScreenX.toString() + 'px';
 $enemyCar2.style.left = '15px';
+$enemyCar2.style.top = '600px';
 $finishLine.style.left = leftScreenX.toString() + 'px';
 $finishLine.style.top = topScreenY.toString() + 'px';
 
@@ -35,12 +36,12 @@ var enemyCars = {
   }
 };
 
-// var finishLine = {
-//   location: {
-//     x: leftScreenX,
-//     y: topScreenY
-//   }
-// };
+var finishLine = {
+  location: {
+    x: leftScreenX,
+    y: topScreenY
+  }
+};
 
 var $carImg = document.querySelector('.car-img');
 var myInt;
@@ -120,9 +121,10 @@ function startCar() {
     car.location.y = newValue;
     $carImg.style.top = (newValue + 'px');
   }
-  checkCrash();
+
 }
 
+var $win = document.querySelector('.win');
 function resetGame() {
   var $crash = document.querySelector('.crash');
   $crash.classList.add('hidden');
@@ -137,6 +139,7 @@ function resetGame() {
   $carImg.style.left = '8px';
   $carImg.style.top = '8px';
   $carImg.className = 'car-img east';
+  $win.className = 'win hidden';
   moveEnemyCarsInt = setInterval(moveEnemyCars, 16);
 }
 
@@ -179,7 +182,7 @@ function checkCrash() {
   if (car.location.x <= -1 || car.location.y <= -1 || car.location.x >= leftScreenX + 15 || car.location.y >= topScreenY + 15) {
     crash = true;
   }
-
+  winGame(crash);
   if (crash) {
     var $crash = document.querySelector('.crash');
     $crash.classList.remove('hidden');
@@ -191,6 +194,7 @@ function checkCrash() {
 }
 
 function moveEnemyCars() {
+  checkCrash();
   $enemyCar1 = document.querySelector('.enemy-car1-img');
   var enemyCar1PixelsToMove;
   var newValue;
@@ -227,7 +231,7 @@ function moveEnemyCars() {
     enemyCar2PixelsToMove = parseInt($enemyCar2.style.left) - movementSpeed;
     newValue2 = enemyCar2PixelsToMove.toString();
     $enemyCar2.style.left = newValue2 + 'px';
-    enemyCars.enemyCar2.location.x = newValue;
+    enemyCars.enemyCar2.location.x = newValue2;
     if (parseInt($enemyCar2.style.left) <= 15) {
       enemyCars.enemyCar2.direction = 'East';
       $enemyCar2.style.transform = 'scaleX(-1)';
@@ -237,7 +241,7 @@ function moveEnemyCars() {
     enemyCar2PixelsToMove = parseInt($enemyCar2.style.left) + movementSpeed;
     newValue2 = enemyCar2PixelsToMove.toString();
     $enemyCar2.style.left = newValue2 + 'px';
-    enemyCars.enemyCar2.location.x = newValue;
+    enemyCars.enemyCar2.location.x = newValue2;
     if (parseInt($enemyCar2.style.left) >= leftScreenX) {
       enemyCars.enemyCar2.direction = 'West';
       $enemyCar2.style.transform = 'scaleX(1)';
@@ -246,3 +250,37 @@ function moveEnemyCars() {
 
 }
 var moveEnemyCarsInt = setInterval(moveEnemyCars, 16);
+
+function winGame(crash) {
+  var win = false;
+
+  var carLeftX = parseInt(car.location.x);
+  var carRightX = parseInt(car.location.x) + 150;
+  var carTopY = parseInt(car.location.y);
+  var carBottomY = parseInt(car.location.y) + 150;
+
+  var finishLineLeftX = parseInt(finishLine.location.x);
+  var finishLineRightX = parseInt(finishLine.location.x) + 150;
+  var finishLineTopY = parseInt(finishLine.location.y);
+  var finishLineBottomY = parseInt(finishLine.location.y) + 150;
+
+  if (carLeftX > finishLineRightX || carRightX < finishLineLeftX) {
+    win = false;
+  } else if (carTopY > finishLineBottomY || carBottomY < finishLineTopY) {
+    win = false;
+  } else {
+    win = true;
+  }
+
+  if (crash && win) {
+    win = false;
+    crash = true;
+  } else if (win) {
+    var $win = document.querySelector('.win');
+    $win.classList.remove('hidden');
+    clearInterval(myInt);
+    setTimeout(resetGame, 1500);
+    win = false;
+    clearInterval(moveEnemyCarsInt);
+  }
+}
